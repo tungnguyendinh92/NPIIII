@@ -1,0 +1,54 @@
+{
+  "entities": {
+    "ProjectPart": {
+      "title": "ProjectPart",
+      "description": "A part or tool within a project execution pipeline",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier" },
+        "project": { "type": "string", "description": "Project name" },
+        "partToolDes": { "type": "string", "description": "Part or tool description" },
+        "partNo": { "type": "string", "description": "Part number" },
+        "toolNo": { "type": "string", "description": "Tool number" },
+        "molder": { "type": "string", "description": "Molder name" },
+        "faLocation": { "type": "string", "description": "FA location" },
+        "toolingStartDate": { "type": "string", "description": "Tooling start date (YYYY-MM-DD)" },
+        "t1Date": { "type": "string", "description": "T1 date (YYYY-MM-DD)" },
+        "tfDate": { "type": "string", "description": "TF date (YYYY-MM-DD)" },
+        "currentStage": { "type": "string", "description": "Current stage (e.g., T1, T2, TF)" },
+        "tfTx": { "type": "string", "description": "TF Tx status" },
+        "currentStageFinishDate": { "type": "string", "description": "Current stage finish date (YYYY-MM-DD)" },
+        "nextStage": { "type": "string", "description": "Next stage" },
+        "latestStatusUpdate": { "type": "string", "description": "Latest status update text" },
+        "threeDIssue": { "type": "string", "description": "3D technical issue description" },
+        "picture": { "type": "string", "description": "URL to a picture of the part" },
+        "toolDFM": { "type": "string", "description": "Tool DFM status" },
+        "t1": { "type": "string", "description": "T1 date" },
+        "t2": { "type": "string", "description": "T2 date" },
+        "t3": { "type": "string", "description": "T3 date" },
+        "t4": { "type": "string", "description": "T4 date" },
+        "t5": { "type": "string", "description": "T5 date" },
+        "t6": { "type": "string", "description": "T6 date" },
+        "odm": { "type": "string", "description": "ODM name" },
+        "pde": { "type": "string", "description": "PDE name" },
+        "pe": { "type": "string", "description": "PE name" },
+        "pte": { "type": "string", "description": "PTE name" },
+        "beta": { "type": "string", "description": "Beta date" },
+        "pilotRun": { "type": "string", "description": "Pilot run date" },
+        "fai": { "type": "string", "description": "FAI date" },
+        "xf": { "type": "string", "description": "XF date" },
+        "modelStatus": { "type": "string", "description": "Overall status of the project model" },
+        "threeDDate": { "type": "string", "description": "3D date" },
+        "dfmDate": { "type": "string", "description": "DFM date" },
+        "uid": { "type": "string", "description": "Owner's user ID" }
+      },
+      "required": ["id", "project", "partNo", "uid"]
+    }
+  },
+  "firestore": {
+    "/parts/{partId}": {
+      "schema": "ProjectPart",
+      "description": "Collection of project parts"
+    }
+  }
+}

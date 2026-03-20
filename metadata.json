@@ -1,0 +1,7 @@
+{
+  "name": "Remix: Project Insight Pro",
+  "description": "AI-powered project management dashboard with dynamic Gantt charts and Excel integration.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
