@@ -1,7 +1,18 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { ProjectPart } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
+let aiInstance: GoogleGenAI | null = null;
+
+function getAI() {
+  if (!aiInstance) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error("GEMINI_API_KEY is not set. Please add it to your environment variables.");
+    }
+    aiInstance = new GoogleGenAI({ apiKey });
+  }
+  return aiInstance;
+}
 
 const partSchema = {
   type: Type.OBJECT,
@@ -58,7 +69,7 @@ export async function extractPartsFromExcel(rawData: any[]): Promise<ProjectPart
     6. Return an array of parts.
   `;
 
-  const response = await ai.models.generateContent({
+  const response = await getAI().models.generateContent({
     model: "gemini-3-flash-preview",
     contents: prompt,
     config: {
@@ -94,7 +105,7 @@ export async function processChatUpdate(
     - responseText: A text response for the user.
   `;
 
-  const response = await ai.models.generateContent({
+  const response = await getAI().models.generateContent({
     model: "gemini-3-flash-preview",
     contents: prompt,
     config: {
@@ -131,7 +142,7 @@ export async function getSummary(parts: ProjectPart[]): Promise<string> {
     Data: ${JSON.stringify(parts)}
   `;
 
-  const response = await ai.models.generateContent({
+  const response = await getAI().models.generateContent({
     model: "gemini-3-flash-preview",
     contents: prompt,
   });
