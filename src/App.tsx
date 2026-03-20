@@ -185,6 +185,7 @@ export default function App() {
 
   const loadSheetsData = async () => {
     if (!scriptUrl) {
+      console.warn("Google Script URL is not set.");
       setIsLoading(false);
       return;
     }
@@ -194,10 +195,15 @@ export default function App() {
         const data = await res.json();
         if (data && Array.isArray(data) && data.length > 0) {
           setParts(data);
+        } else {
+          console.warn("Received empty or invalid data from Sheets:", data);
         }
+      } else {
+        const errorData = await res.json().catch(() => ({ error: res.statusText }));
+        console.error(`Failed to load Sheets data (Status ${res.status}):`, errorData);
       }
     } catch (error) {
-      console.error("Failed to load Sheets data:", error);
+      console.error("Network error loading Sheets data:", error);
     } finally {
       setIsLoading(false);
     }
